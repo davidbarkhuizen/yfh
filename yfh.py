@@ -81,22 +81,22 @@ def update_csv_to_present_from_net(root_folder):
 			body = None
 
 			msg = 'requesting data from {0}-{1}-{2} to {3}-{4}-{5}'.format(
-				i.year.zfill(2), i.month.zfill(2), i.day.zfill(2),
-				f.year.zfill(2), f.month.zfill(2), f.day.zfill(2)
+				str(i.year).zfill(2), str(i.month).zfill(2), str(i.day).zfill(2),
+				str(f.year).zfill(2), str(f.month).zfill(2), str(f.day).zfill(2)
 				) 
 			log(msg)
 
 			body = get_csv_lines_for_period(symbol,
-				i.year.zfill(2), i.month.zfill(2), i.day.zfill(2),
-				f.year.zfill(2), f.month.zfill(2), f.day.zfill(2)
+				str(i.year).zfill(2), str(i.month).zfill(2), str(i.day).zfill(2),
+				str(f.year).zfill(2), str(f.month).zfill(2), str(f.day).zfill(2)
 				)
 	
 			data_lines = body.split('\n')[1:-1]
-			log('# of data lines returned = %s' % str(len(lines)))
+			log('# of data lines returned = %s' % str(len(data_lines)))
 	
 			to_sort = []
 	
-			for line in lines:
+			for line in data_lines:
 	
 				row = line.split(',')
 			 	d = CSV.row_to_dict(row)
