@@ -115,13 +115,12 @@ def update_csv_to_present_from_net(root_folder):
 					}
 				to_sort.append(datum)
 			
-			seq = sorted(to_sort, key=lambda j:j.get('date'))
-	  
+			seq = sorted(to_sort, key=lambda j:j.get('date'))	  
 		
 			file_access_mode = 'at' if csv_file_exists else 'wt'
-			new_text = '\n'.join(seq)
+			new_text = '\n'.join([x['line'] for x in seq])
 			with open(symbol_file_path, file_access_mode) as out_file:
-				out_file.write('\n' + new_text)
+				out_file.write(new_text)
 			
 			timer_end = time.clock()
 			
