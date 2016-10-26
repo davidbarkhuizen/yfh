@@ -8,10 +8,13 @@ from httpadaptor import *
 
 ONE_DAY = datetime.timedelta(days=1) 
 
-DELAY = 0.25
+WAIT_BETWEEN_SYMBOLS_S = 10
 LOG_FILENAME = 'csv_data_update.log'
 LOG_FORMAT = "%(message)s"
-CSV_ROOT_PATH = '/home/david/data/csv_data/'
+CSV_ROOT_PATH = '/home/mage/data/csv_data_dec_2015/'
+
+NETWORK_RETRY_LIMIT = 1000
+NETWORK_RETRY_WAIT_S = 60 
 
 # -------------------------------------------------------------
 # LOGGING -----------------------------------------------------
@@ -86,10 +89,24 @@ def update_csv_to_present_from_net(root_folder):
 				) 
 			log(msg)
 
-			body = get_csv_lines_for_period(symbol,
-				str(i.year).zfill(2), str(i.month).zfill(2), str(i.day).zfill(2),
-				str(f.year).zfill(2), str(f.month).zfill(2), str(f.day).zfill(2)
-				)
+			retry_count = 0
+
+			while retry_count < NETWORK_RETRY_LIMIT:
+
+				try:
+
+					body = get_csv_lines_for_period(symbol,
+						str(i.year).zfill(2), str(i.month).zfill(2), str(i.day).zfill(2),
+						str(f.year).zfill(2), str(f.month).zfill(2), str(f.day).zfill(2)
+						)
+
+					break
+
+				except Exception, e:
+
+					retry_count = retry_count + 1
+					log('attempt %i to fetch data failed: %s' % (retry_count, str(e)))
+					time.sleep(NETWORK_RETRY_WAIT_S)
 	
 			data_lines = body.split('\n')[1:-1]
 			log('# of data lines returned = %s' % str(len(data_lines)))
@@ -125,7 +142,7 @@ def update_csv_to_present_from_net(root_folder):
 			timer_end = time.clock()
 			
 			print('symbol %s [%s / %s] in %s seconds' % (symbol, str(count), str(len(symbols)), str(timer_end - timer_start)))
-			time.sleep(DELAY) 
+			time.sleep(WAIT_BETWEEN_SYMBOLS_S) 
   
 def main():
 	log('root path = %s' % CSV_ROOT_PATH)
