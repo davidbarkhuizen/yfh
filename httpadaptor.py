@@ -1,8 +1,8 @@
 # 2010-07-17 - 2011-01-16 @ david barkhuizen
 # yahoo finance harvester component
 
-import httplib
-httplib.HTTPConnection.debuglevel = 0
+import http.client
+http.client.HTTPConnection.debuglevel = 0
 import urllib
 
 URL_STEM = 'http://ichart.finance.yahoo.com/table.csv?'

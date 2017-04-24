@@ -16,7 +16,7 @@ WAIT_BETWEEN_SYMBOLS_S = 1
 CSV_ROOT_PATH = '/home/mage/data/csv_data_dec_2015/'
 
 NETWORK_RETRY_LIMIT = 1000
-NETWORK_RETRY_WAIT_S = 10 
+NETWORK_RETRY_WAIT_S = 1 
 
 # -------------------------------------------------------------
 

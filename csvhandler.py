@@ -62,7 +62,7 @@ class CSV(object):
       m = int(tokens[1].lstrip('0'))
       d = int(tokens[2].lstrip('0'))
       return datetime.date(year=y, month=m, day=d)  
-    except Exception, e:
+    except Exception as e:
       return None  
       
   @classmethod    
