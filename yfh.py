@@ -1,29 +1,22 @@
-import logging
+
 import time
 import datetime
 import sys
 
+import random
+
 from csvhandler import CSV
 from httpadaptor import *
 
+from pycore import configure_logging, log
+
 ONE_DAY = datetime.timedelta(days=1) 
 
-WAIT_BETWEEN_SYMBOLS_S = 10
-LOG_FILENAME = 'csv_data_update.log'
-LOG_FORMAT = "%(message)s"
+WAIT_BETWEEN_SYMBOLS_S = 1
 CSV_ROOT_PATH = '/home/mage/data/csv_data_dec_2015/'
 
 NETWORK_RETRY_LIMIT = 1000
-NETWORK_RETRY_WAIT_S = 60 
-
-# -------------------------------------------------------------
-# LOGGING -----------------------------------------------------
-
-logging.basicConfig(filename=LOG_FILENAME, level=logging.INFO, format=LOG_FORMAT)
-
-def log(s):
-	print(s)
-	logging.info(s)
+NETWORK_RETRY_WAIT_S = 10 
 
 # -------------------------------------------------------------
 
@@ -42,6 +35,7 @@ def update_csv_to_present_from_net(root_folder):
 	log('loading csv list of symbol types @ %s' % symbol_types_list_file_path)
 	try:
 		symbol_types = CSV.load_csv_list_from_file(symbol_types_list_file_path)
+		random.shuffle(symbol_types)
 		log('ok')
 	except Exception, e:
 		log('exception - %s' % str(e))
@@ -53,11 +47,13 @@ def update_csv_to_present_from_net(root_folder):
 		symbol_list_file_path = folder + 'symbols' + '.csv'
 		log('loading csv list of symbols @ %s' % symbol_list_file_path)
 		symbols = CSV.load_csv_list_from_file(symbol_list_file_path)
+		random.shuffle(symbols)
 		log('ok')
 	
 		count = 0
 		for symbol in symbols:
 			
+			log('-'*80)
 			log(symbol)
 			
 			count += 1     
@@ -68,7 +64,12 @@ def update_csv_to_present_from_net(root_folder):
 	  
 	  		if (csv_file_exists == True):
 				log('csv file %s exists' % symbol_file_path)
-				(d_start, d_end) = CSV.get_date_range(symbol_file_path)
+				try:
+					(d_start, d_end) = CSV.get_date_range(symbol_file_path)
+				except Exception, e:
+					log('exception encountered while examining existing data file, skipping symbol')
+					continue
+
 				log('existing data spans range %s - %s' % (str(d_start), str(d_end)))
 				i = d_end + ONE_DAY        
 	  		else:
@@ -106,7 +107,10 @@ def update_csv_to_present_from_net(root_folder):
 
 					retry_count = retry_count + 1
 					log('attempt %i to fetch data failed: %s' % (retry_count, str(e)))
-					time.sleep(NETWORK_RETRY_WAIT_S)
+
+					if retry_count < NETWORK_RETRY_LIMIT:
+						log('sleeping for %i seconds before retrying')
+						time.sleep(NETWORK_RETRY_WAIT_S)
 	
 			data_lines = body.split('\n')[1:-1]
 			log('# of data lines returned = %s' % str(len(data_lines)))
@@ -141,10 +145,15 @@ def update_csv_to_present_from_net(root_folder):
 			
 			timer_end = time.clock()
 			
-			print('symbol %s [%s / %s] in %s seconds' % (symbol, str(count), str(len(symbols)), str(timer_end - timer_start)))
+			log('%s : %s [%i / %i] in %i seconds' % (symbol_type, symbol, count, len(symbols), timer_end - timer_start))
+			
+			log('sleeping for %i seconds before next symbol' % WAIT_BETWEEN_SYMBOLS_S)
 			time.sleep(WAIT_BETWEEN_SYMBOLS_S) 
   
 def main():
+
+	configure_logging('csv_data_update.log')
+
 	log('root path = %s' % CSV_ROOT_PATH)
 	update_csv_to_present_from_net(CSV_ROOT_PATH)
   

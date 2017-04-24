@@ -1,0 +1,21 @@
+SVT.L
+csv file /home/mage/data/csv_data_dec_2015/lse_ftse_100/SVT.L.csv exists
+existing data spans range 1989-12-11 - 2015-12-24
+requesting data from 2015-12-25 to 2016-11-03
+http://ichart.finance.yahoo.com/table.csv?a=11&c=2015&b=25&e=03&d=10&g=d&f=2016&s=SVT.L
+# of data lines returned = 221
+lse_ftse_100 : SVT.L [34 / 98] in 0 seconds
+sleeping for 5 seconds before next symbol
+--------------------------------------------------------------------------------
+PSO.L
+csv file /home/mage/data/csv_data_dec_2015/lse_ftse_100/PSO.L.csv exists
+Traceback (most recent call last):
+  File "yfh.py", line 162, in <module>
+    main()
+  File "yfh.py", line 159, in main
+    update_csv_to_present_from_net(CSV_ROOT_PATH)
+  File "yfh.py", line 76, in update_csv_to_present_from_net
+    (d_start, d_end) = CSV.get_date_range(symbol_file_path)
+  File "/home/mage/code/yfh/csvhandler.py", line 31, in get_date_range
+    return (slist[0]['date'], slist[len(slist) - 1]['date'])
+IndexError: list index out of range

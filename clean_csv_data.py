@@ -1,4 +1,8 @@
-import logging
+from pycore import configure_logging, log
+configure_logging('csv_data_update.log')
+
+# -------------------------------------------------------------
+
 import time
 import datetime
 import sys
@@ -9,18 +13,7 @@ from httpadaptor import *
 ONE_DAY = datetime.timedelta(days=1) 
 
 DELAY = 0.25
-LOG_FILENAME = 'csv_data_update.log'
-LOG_FORMAT = "%(message)s"
 CSV_ROOT_PATH = '/home/david/data/csv_data/'
-
-# -------------------------------------------------------------
-# LOGGING -----------------------------------------------------
-
-logging.basicConfig(filename=LOG_FILENAME, level=logging.INFO, format=LOG_FORMAT)
-
-def log(s):
-	print(s)
-	logging.info(s)
 
 # -------------------------------------------------------------
 
