@@ -1,0 +1,9 @@
+
+
+rate limited
+
+file-based config
+
+persistence of attempt record
+=> always update stalest data first
+=> develop a list of defunct symbols

@@ -43,6 +43,17 @@ def http_get(url, cookie = None):
             info = str(response.info())   
             text = str(response.read())
 
+    # urllib.error.HTTPError: HTTP Error 401: Unauthorized
+    except urllib.error.HTTPError as httpE: 
+
+        print(httpE.code)
+        print('code')
+        print(type(httpE.code))
+        print('reason')
+        print(type(httpE.code))
+
+        # HTTP Error 401: Unauthorized
+
     except Exception as e:
         print(e)
         raise e
@@ -61,11 +72,12 @@ def get_yahoo_credentials(symbol):
     response_data = http_get(url)
 
     # Set-Cookie: B=3u3f1b9cn3i60&b=3&s=c5; expires=Fri, 21-Jul-2018 09:26:24 GMT; path=/; domain=.yahoo.com
+    #
     cookie_regex = r'Set-Cookie: (.*?);'
     cookie = get_regex_first_match(cookie_regex, response_data.Info)
 
     # "CrumbStore":{"crumb":"yg.r9.0LvYF"}
-
+    #
     crumble_regex = r'CrumbStore":{"crumb":"(.*?)"}'   
     crumb = get_regex_first_match(crumble_regex, response_data.Text)
 
@@ -83,8 +95,6 @@ def get_historial_data(credentials, symbol, date_from, date_to):
     url = quote_link.format(symbol, time_stamp_from, time_stamp_to, credentials.Crumb)
 
     return http_get(url, cookie=credentials.Cookie)
-
- 
 
 # --------------------------------------------------------------------------------
 

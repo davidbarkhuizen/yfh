@@ -1,0 +1,42 @@
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Content-Type: text/html; charset=utf-8
+Set-Cookie: B=5omtt1dcn6pvl&b=3&s=b2; expires=Sat, 22-Jul-2018 14:57:57 GMT; path=/; domain=.yahoo.com
+Date: Sat, 22 Jul 2017 14:57:57 GMT
+Age: 0
+Via: http/1.1 media-router-omega13.prod.media.ir2.yahoo.com (ApacheTrafficServer [cMsSf ]), http/1.1 media-router34.prod.media.ir2.yahoo.com (ApacheTrafficServer [cMsSf ]), https/1.1 e12.ycpi.lob.yahoo.com (ApacheTrafficServer [cMsSf ])
+Server: ATS
+Vary: Accept-Encoding,X-Ssl
+Strict-Transport-Security: max-age=0
+Transfer-Encoding: chunked
+Connection: close
+
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Content-Type: text/html; charset=utf-8
+Set-Cookie: B=05k24utcn6qjd&b=3&s=6s; expires=Sat, 22-Jul-2018 15:08:29 GMT; path=/; domain=.yahoo.com
+Date: Sat, 22 Jul 2017 15:08:30 GMT
+Age: 3
+Via: http/1.1 media-router-omega1.prod.media.ir2.yahoo.com (ApacheTrafficServer [cMsSf ]), http/1.1 media-router47.prod.media.ir2.yahoo.com (ApacheTrafficServer [cMsSf ]), https/1.1 e13.ycpi.lob.yahoo.com (ApacheTrafficServer [cMsSf ])
+Server: ATS
+Vary: Accept-Encoding,X-Ssl
+Strict-Transport-Security: max-age=0
+Transfer-Encoding: chunked
+Connection: close
+
+X-Content-Type-Options: nosniff
+X-YQL-Host: finance-yql--default-production-ir2-3099716971-7g8j1
+X-Yahoo-Request-Id: bols0f9cn6qji
+Cache-Control: no-cache, no-store, private
+Content-Type: text/csv; charset=utf-8
+Content-Disposition: attachment; filename=AAPL.csv
+Date: Sat, 22 Jul 2017 15:08:34 GMT
+Age: 0
+Via: http/1.1 media-router-omega11.prod.media.ir2.yahoo.com (ApacheTrafficServer [cMsSf ]), http/1.1 media-ncache-api11.prod.media.ir2.yahoo.com (ApacheTrafficServer [cMsSf ]), http/1.1 media-ncache-api17.prod.media.ir2.yahoo.com (ApacheTrafficServer [cMsSf ]), http/1.1 media-router-api4.prod.media.ir2.yahoo.com (ApacheTrafficServer [cMsSf ]), https/1.1 e15.ycpi.amb.yahoo.com (ApacheTrafficServer [cMsSf ])
+Server: ATS
+Strict-Transport-Security: max-age=0
+Transfer-Encoding: chunked
+Connection: close
+
