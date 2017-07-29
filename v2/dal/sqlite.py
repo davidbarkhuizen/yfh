@@ -16,10 +16,3 @@ def configure(database, user, password):
 	return new_cursor
 
 # ----------------------------------------------------------------------
-
-def get_symbol(cursor, id):
-
-	cursor.execute('''select Code, Description from Symbols where Id = {0}'''.format(id))
-
-	row = cur.fetchone()
-	# rows = cur.fetchall()
